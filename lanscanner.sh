@@ -31,7 +31,7 @@ scan(){
 
 update(){
 	echo "Update oui.txt, please wait..."
-	curl http://standards-oui.ieee.org/oui.txt > ./out.txt
+	curl http://standards-oui.ieee.org/oui.txt > ./oui.txt
 	echo "Update complete"
 }
 
