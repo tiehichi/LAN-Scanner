@@ -40,6 +40,11 @@ update(){
     echo "Update complete"
 }
 
+show_devices(){
+    for device in $1; do
+        echo -e "\033[33m$device\033[m"
+    done
+}
 
 # main
 if [ "$1" = "update" ]; then
@@ -55,6 +60,18 @@ else
         echo -ne "\n"
     elif [ $device_num -eq 0 ]; then
         echo -e "\033[31mYou may not have network device\033[m"
+    else
+        echo "You have more than one network device:"
+        show_devices "${devices[*]}"
+        echo -n "Please select (default=all): "
+        read device
+        if [ -z $device ]; then
+            for device in ${devices[*]}; do
+                scan $device $(get_ipv4 $device)
+            done
+        else
+            scan $device $(get_ipv4 $device)
+        fi
+            echo -ne "\n"
     fi
-
 fi
